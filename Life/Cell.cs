@@ -6,6 +6,7 @@ namespace cli_life;
 
 public class Cell
 {
+	public static CellConfig config;
 	public bool IsAlive;
 	public readonly List<Cell> neighbors = new List<Cell>();
 	private bool IsAliveNext;
@@ -13,9 +14,9 @@ public class Cell
 	{
 		int liveNeighbors = neighbors.Where(x => x.IsAlive).Count();
 		if (IsAlive)
-			IsAliveNext = liveNeighbors == 2 || liveNeighbors == 3;
+			IsAliveNext = config.aliveCondition.Contains(liveNeighbors);
 		else
-			IsAliveNext = liveNeighbors == 3;
+			IsAliveNext = config.notAliveCondition.Contains(liveNeighbors);
 	}
 	public void Advance()
 	{

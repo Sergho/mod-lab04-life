@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace cli_life;
 
-class AppConfig
+public class AppConfig
 {
 	public int width { get; set; }
 	public int height { get; set; }
@@ -14,9 +14,16 @@ class AppConfig
 	public int delay { get; set; }
 }
 
-class Config
+public class CellConfig
+{
+	public int[] aliveCondition { get; set; }
+	public int[] notAliveCondition { get; set; }
+}
+
+public class Config
 {
 	public AppConfig app { get; set; }
+	public CellConfig cell { get; set; }
 	public static Config Parse(string configPath)
 	{
 		string jsonString = File.ReadAllText(configPath);
