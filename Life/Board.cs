@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 
 namespace cli_life;
 
@@ -31,24 +32,24 @@ public class Board
 		foreach (var cell in Cells)
 			cell.IsAlive = rand.NextDouble() < liveDensity;
 	}
-	public void Render(string alive, string notAlive)
+	public string Render(string alive, string notAlive)
 	{
+		string result = "";
 		for (int row = 0; row < Rows; row++)
 		{
 			for (int col = 0; col < Columns; col++)
 			{
 				var cell = Cells[col, row];
-				if (cell.IsAlive)
-				{
-					Console.Write(alive);
-				}
-				else
-				{
-					Console.Write(notAlive);
-				}
+				if (cell.IsAlive) result += alive;
+				else result += notAlive;
 			}
-			Console.Write('\n');
+			result += "\n";
 		}
+		return result;
+	}
+	public string Serialize()
+	{
+		return Render("1", "0");
 	}
 
 	public void Advance()

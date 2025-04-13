@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.IO.Enumeration;
 using System.Threading;
 
@@ -30,7 +31,8 @@ class Program
         {
             if (paused) continue;
             Console.Clear();
-            board.Render(config.app.aliveChar, config.app.notAliveChar);
+            string render = board.Render(config.app.aliveChar, config.app.notAliveChar);
+            Console.Write(render);
             board.Advance();
             Thread.Sleep(config.app.delay);
         }
@@ -45,6 +47,15 @@ class Program
                 ConsoleKeyInfo key = Console.ReadKey(intercept: true);
                 if (paused)
                 {
+                    if (key.Key == ConsoleKey.Enter)
+                    {
+                        string path = "saves/" + filename + ".txt";
+                        Directory.CreateDirectory("saves");
+                        File.WriteAllText(path, board.Serialize());
+                        filename = "";
+                        paused = false;
+                        continue;
+                    }
                     char ch = key.KeyChar;
                     filename += ch;
                     Console.Write(ch);
