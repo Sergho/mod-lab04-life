@@ -9,7 +9,7 @@ class Program
     static Board board;
     static Config config;
     static bool paused = false;
-    static private void Setup()
+    static void Main(string[] args)
     {
         config = Config.Parse("config.json");
         Cell.config = config.cell;
@@ -18,10 +18,6 @@ class Program
             height: config.app.height,
             cellSize: config.app.cellSize,
             liveDensity: config.app.liveDensity);
-    }
-    static void Main(string[] args)
-    {
-        Setup();
 
         Thread mainThread = new Thread(MainPolling);
         Thread keyThread = new Thread(KeyPolling);
