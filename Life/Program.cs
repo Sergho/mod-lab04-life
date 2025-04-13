@@ -6,13 +6,15 @@ namespace cli_life;
 class Program
 {
     static Board board;
-    static private void Reset()
+    static AppConfig config;
+    static private void Setup()
     {
+        config = Config.Parse("config.json").app;
         board = new Board(
-            width: 50,
-            height: 20,
-            cellSize: 1,
-            liveDensity: 0.5);
+            width: config.width,
+            height: config.height,
+            cellSize: config.cellSize,
+            liveDensity: config.liveDensity);
     }
     static void Render()
     {
@@ -23,11 +25,11 @@ class Program
                 var cell = board.Cells[col, row];
                 if (cell.IsAlive)
                 {
-                    Console.Write("*");
+                    Console.Write(config.aliveChar);
                 }
                 else
                 {
-                    Console.Write(" ");
+                    Console.Write(config.notAliveChar);
                 }
             }
             Console.Write('\n');
@@ -35,13 +37,13 @@ class Program
     }
     static void Main(string[] args)
     {
-        Reset();
+        Setup();
         while (true)
         {
             Console.Clear();
             Render();
             board.Advance();
-            Thread.Sleep(1000);
+            Thread.Sleep(config.delay);
         }
     }
 }

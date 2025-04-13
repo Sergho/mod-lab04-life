@@ -1,0 +1,11 @@
+{
+  "app": {
+    "width": 60,
+    "height": 25,
+    "cellSize": 1,
+    "liveDensity": 0.7,
+    "aliveChar": "*",
+    "notAliveChar": " ",
+    "delay": 100
+  }
+}
