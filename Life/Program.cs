@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Enumeration;
 using System.Threading;
 
 namespace cli_life;
@@ -41,22 +42,12 @@ class Program
     {
         Setup();
 
-        Thread pollingThread = new Thread(Polling);
-        pollingThread.Start();
-
-        while (true)
-        {
-            if (Console.KeyAvailable)
-            {
-                ConsoleKeyInfo key = Console.ReadKey(intercept: true);
-                if (key.Key == ConsoleKey.P)
-                {
-                    paused = !paused;
-                }
-            }
-        }
+        Thread mainThread = new Thread(MainPolling);
+        Thread keyThread = new Thread(KeyPolling);
+        mainThread.Start();
+        keyThread.Start();
     }
-    static void Polling()
+    static void MainPolling()
     {
         while (true)
         {
@@ -65,6 +56,35 @@ class Program
             Render();
             board.Advance();
             Thread.Sleep(config.app.delay);
+        }
+    }
+    static void KeyPolling()
+    {
+        string filename = "";
+        while (true)
+        {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo key = Console.ReadKey(intercept: true);
+                if (paused)
+                {
+                    char ch = key.KeyChar;
+                    filename += ch;
+                    Console.Write(ch);
+                }
+                if (key.Key == ConsoleKey.P)
+                {
+                    Console.Write("Save as: ");
+                    paused = true;
+                }
+                if (key.Key == ConsoleKey.Escape)
+                {
+                    filename = "";
+                    paused = false;
+                }
+            }
+
+            Thread.Sleep(50);
         }
     }
 }
