@@ -51,6 +51,24 @@ public class Board
 	{
 		return Render("1", "0");
 	}
+	public void Deserialize(string data)
+	{
+		int row = 0;
+		int col = 0;
+		foreach (char c in data)
+		{
+			if (c == '\n')
+			{
+				row++;
+				col = 0;
+				continue;
+			}
+			if (col >= Columns || row >= Rows) throw new Exception("Incorrect file structure");
+			var cell = Cells[col, row];
+			cell.IsAlive = c == '1';
+			col++;
+		}
+	}
 
 	public void Advance()
 	{

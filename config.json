@@ -1,7 +1,7 @@
 {
   "app": {
-    "width": 60,
-    "height": 25,
+    "width": 50,
+    "height": 20,
     "cellSize": 1,
     "liveDensity": 0.5,
     "aliveChar": "*",

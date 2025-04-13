@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.IO.Enumeration;
 using System.Threading;
 
 namespace cli_life;
@@ -9,7 +8,7 @@ class Program
 {
     static Board board;
     static Config config;
-    static bool paused = false;
+    static bool paused = true;
     static void Main(string[] args)
     {
         config = Config.Parse("config.json");
@@ -20,19 +19,33 @@ class Program
             cellSize: config.app.cellSize,
             liveDensity: config.app.liveDensity);
 
+        Console.Write("Load from: ");
+        string filename = Console.ReadLine();
+        if (filename != "")
+        {
+            string content = ReadFile(filename);
+            board.Deserialize(content);
+        }
+
+        Render();
+
         Thread mainThread = new Thread(MainPolling);
         Thread keyThread = new Thread(KeyPolling);
         mainThread.Start();
         keyThread.Start();
+    }
+    static void Render()
+    {
+        Console.Clear();
+        string render = board.Render(config.app.aliveChar, config.app.notAliveChar);
+        Console.Write(render);
     }
     static void MainPolling()
     {
         while (true)
         {
             if (paused) continue;
-            Console.Clear();
-            string render = board.Render(config.app.aliveChar, config.app.notAliveChar);
-            Console.Write(render);
+            Render();
             board.Advance();
             Thread.Sleep(config.app.delay);
         }
@@ -49,9 +62,7 @@ class Program
                 {
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        string path = "saves/" + filename + ".txt";
-                        Directory.CreateDirectory("saves");
-                        File.WriteAllText(path, board.Serialize());
+                        SaveFile(filename);
                         filename = "";
                         paused = false;
                         continue;
@@ -74,5 +85,20 @@ class Program
 
             Thread.Sleep(50);
         }
+    }
+    static string GetPath(string filename)
+    {
+        return "saves/" + filename + ".txt";
+    }
+    static void SaveFile(string filename)
+    {
+        Directory.CreateDirectory("saves");
+        File.WriteAllText(GetPath(filename), board.Serialize());
+    }
+    static string ReadFile(string filename)
+    {
+        string path = GetPath(filename);
+        if (!File.Exists(path)) throw new Exception("File not found");
+        return File.ReadAllText(path);
     }
 }
