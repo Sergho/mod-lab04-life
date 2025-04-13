@@ -53,6 +53,7 @@ public class Board
 	}
 	public void Deserialize(string data)
 	{
+		this.Clear();
 		int row = 0;
 		int col = 0;
 		foreach (char c in data)
@@ -68,6 +69,10 @@ public class Board
 			cell.IsAlive = c == '1';
 			col++;
 		}
+	}
+	public void Clear()
+	{
+		foreach (var cell in Cells) cell.IsAlive = false;
 	}
 
 	public void Advance()
