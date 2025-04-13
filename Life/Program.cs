@@ -67,6 +67,12 @@ class Program
                         paused = false;
                         continue;
                     }
+                    if (key.Key == ConsoleKey.Backspace)
+                    {
+                        filename = filename.Remove(filename.Length - 1);
+                        Console.Write("\b \b");
+                        continue;
+                    }
                     char ch = key.KeyChar;
                     filename += ch;
                     Console.Write(ch);
