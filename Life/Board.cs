@@ -31,6 +31,25 @@ public class Board
 		foreach (var cell in Cells)
 			cell.IsAlive = rand.NextDouble() < liveDensity;
 	}
+	public void Render(string alive, string notAlive)
+	{
+		for (int row = 0; row < Rows; row++)
+		{
+			for (int col = 0; col < Columns; col++)
+			{
+				var cell = Cells[col, row];
+				if (cell.IsAlive)
+				{
+					Console.Write(alive);
+				}
+				else
+				{
+					Console.Write(notAlive);
+				}
+			}
+			Console.Write('\n');
+		}
+	}
 
 	public void Advance()
 	{

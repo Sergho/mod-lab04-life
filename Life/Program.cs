@@ -19,25 +19,6 @@ class Program
             cellSize: config.app.cellSize,
             liveDensity: config.app.liveDensity);
     }
-    static void Render()
-    {
-        for (int row = 0; row < board.Rows; row++)
-        {
-            for (int col = 0; col < board.Columns; col++)
-            {
-                var cell = board.Cells[col, row];
-                if (cell.IsAlive)
-                {
-                    Console.Write(config.app.aliveChar);
-                }
-                else
-                {
-                    Console.Write(config.app.notAliveChar);
-                }
-            }
-            Console.Write('\n');
-        }
-    }
     static void Main(string[] args)
     {
         Setup();
@@ -53,7 +34,7 @@ class Program
         {
             if (paused) continue;
             Console.Clear();
-            Render();
+            board.Render(config.app.aliveChar, config.app.notAliveChar);
             board.Advance();
             Thread.Sleep(config.app.delay);
         }

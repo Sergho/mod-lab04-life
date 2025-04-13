@@ -9,8 +9,8 @@ public class AppConfig
 	public int height { get; set; }
 	public int cellSize { get; set; }
 	public double liveDensity { get; set; }
-	public char aliveChar { get; set; }
-	public char notAliveChar { get; set; }
+	public string aliveChar { get; set; }
+	public string notAliveChar { get; set; }
 	public int delay { get; set; }
 }
 
