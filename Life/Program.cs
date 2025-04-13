@@ -7,6 +7,7 @@ class Program
 {
     static Board board;
     static Config config;
+    static bool paused = false;
     static private void Setup()
     {
         config = Config.Parse("config.json");
@@ -39,8 +40,27 @@ class Program
     static void Main(string[] args)
     {
         Setup();
+
+        Thread pollingThread = new Thread(Polling);
+        pollingThread.Start();
+
         while (true)
         {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.P)
+                {
+                    paused = !paused;
+                }
+            }
+        }
+    }
+    static void Polling()
+    {
+        while (true)
+        {
+            if (paused) continue;
             Console.Clear();
             Render();
             board.Advance();
