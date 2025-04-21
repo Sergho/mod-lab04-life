@@ -92,7 +92,7 @@ class Program
                 }
             }
 
-            Thread.Sleep(50);
+            Thread.Sleep(config.app.delay);
         }
     }
     static string GetPath(string filename)
