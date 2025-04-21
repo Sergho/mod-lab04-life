@@ -94,14 +94,14 @@ public class Board
 				int yT = (y > 0) ? y - 1 : Rows - 1;
 				int yB = (y < Rows - 1) ? y + 1 : 0;
 
-				Cells[x, y].neighbors.Add(Cells[xL, yT]);
-				Cells[x, y].neighbors.Add(Cells[x, yT]);
-				Cells[x, y].neighbors.Add(Cells[xR, yT]);
-				Cells[x, y].neighbors.Add(Cells[xL, y]);
-				Cells[x, y].neighbors.Add(Cells[xR, y]);
-				Cells[x, y].neighbors.Add(Cells[xL, yB]);
-				Cells[x, y].neighbors.Add(Cells[x, yB]);
-				Cells[x, y].neighbors.Add(Cells[xR, yB]);
+				Cells[x, y].Neighbors.Add(Cells[xL, yT]);
+				Cells[x, y].Neighbors.Add(Cells[x, yT]);
+				Cells[x, y].Neighbors.Add(Cells[xR, yT]);
+				Cells[x, y].Neighbors.Add(Cells[xL, y]);
+				Cells[x, y].Neighbors.Add(Cells[xR, y]);
+				Cells[x, y].Neighbors.Add(Cells[xL, yB]);
+				Cells[x, y].Neighbors.Add(Cells[x, yB]);
+				Cells[x, y].Neighbors.Add(Cells[xR, yB]);
 			}
 		}
 	}

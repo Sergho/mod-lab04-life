@@ -6,18 +6,20 @@ namespace cli_life;
 
 class Program
 {
+    static BoardAnalyzer boardAnalyzer;
     static Board board;
     static Config config;
     static bool paused = true;
     static void Main(string[] args)
     {
         config = Config.Parse("config.json");
-        Cell.config = config.cell;
+        Cell.Config = config.cell;
         board = new Board(
             width: config.app.width,
             height: config.app.height,
             cellSize: config.app.cellSize,
             liveDensity: config.app.liveDensity);
+        boardAnalyzer = new BoardAnalyzer(board);
 
         Console.Write("Load from: ");
         string filename = Console.ReadLine();
@@ -39,6 +41,7 @@ class Program
         Console.Clear();
         string render = board.Render(config.app.aliveChar, config.app.notAliveChar);
         Console.Write(render);
+        Console.WriteLine(boardAnalyzer.GetPartsCount());
     }
     static void MainPolling()
     {
