@@ -1,15 +1,15 @@
 {
-	"app": {
-		"width": 40,
-		"height": 15,
-		"cellSize": 1,
-		"liveDensity": 0.15,
-		"aliveChar": "⬜",
-		"notAliveChar": "⬛",
-		"delay": 100
-	},
-	"cell": {
-		"aliveCondition": [2, 3],
-		"notAliveCondition": [3]
-	}
+  "app": {
+    "width": 50,
+    "height": 25,
+    "cellSize": 1,
+    "liveDensity": 0.15,
+    "aliveChar": "⬜",
+    "notAliveChar": "⬛",
+    "delay": 100
+  },
+  "cell": {
+    "aliveCondition": [2, 3],
+    "notAliveCondition": [3]
+  }
 }
