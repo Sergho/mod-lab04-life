@@ -8,7 +8,7 @@ namespace cli_life;
 class BoardAnalyzer
 {
   public Board Board { get; set; }
-  public List<int[,]> Patterns { get; set; }
+  public Dictionary<string, int[,]> Patterns { get; set; }
   public BoardAnalyzer(Board board)
   {
     Board = board;
@@ -49,11 +49,11 @@ class BoardAnalyzer
     }
     return list;
   }
-  private List<int[,]> GetPatterns(string prefix)
+  private Dictionary<string, int[,]> GetPatterns(string prefix)
   {
-    if (!Directory.Exists(prefix)) return new List<int[,]>();
+    if (!Directory.Exists(prefix)) return new Dictionary<string, int[,]>();
     string[] filenames = Directory.GetFiles(prefix);
-    List<int[,]> patterns = new List<int[,]>();
+    Dictionary<string, int[,]> patterns = new Dictionary<string, int[,]>();
     foreach (var filename in filenames)
     {
       string[] content = File.ReadAllLines(filename);
@@ -68,7 +68,7 @@ class BoardAnalyzer
         }
       }
 
-      patterns.Add(pattern);
+      patterns.Add(Path.GetFileNameWithoutExtension(filename), pattern);
     }
     return patterns;
   }
