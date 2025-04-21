@@ -20,7 +20,7 @@ public class Board
 		Cells = new Cell[width / cellSize, height / cellSize];
 		for (int x = 0; x < Columns; x++)
 			for (int y = 0; y < Rows; y++)
-				Cells[x, y] = new Cell();
+				Cells[x, y] = new Cell(x, y);
 
 		ConnectNeighbors();
 		Randomize(liveDensity);

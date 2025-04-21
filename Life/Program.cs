@@ -41,7 +41,11 @@ class Program
         Console.Clear();
         string render = board.Render(config.app.aliveChar, config.app.notAliveChar);
         Console.Write(render);
-        Console.WriteLine(boardAnalyzer.GetPartsCount());
+        var classification = boardAnalyzer.GetClassification();
+        foreach (var entry in classification)
+        {
+            Console.WriteLine($"{entry.Key}: {entry.Value}");
+        }
     }
     static void MainPolling()
     {

@@ -14,7 +14,17 @@ class BoardAnalyzer
     Board = board;
     Patterns = GetPatterns("saves/examples");
   }
-  public int GetPartsCount()
+  public Dictionary<string, int> GetClassification()
+  {
+    var classification = new Dictionary<string, int>();
+    foreach (var entry in Patterns)
+    {
+      int count = GetPartsCount(entry.Value);
+      classification.Add(entry.Key, count);
+    }
+    return classification;
+  }
+  private int GetPartsCount(int[,] pattern)
   {
     var visited = new HashSet<Cell>();
     var parts = new List<List<Cell>>();
