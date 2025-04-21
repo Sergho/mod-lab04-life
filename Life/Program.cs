@@ -80,7 +80,7 @@ class Program
                     filename += ch;
                     Console.Write(ch);
                 }
-                if (key.Key == ConsoleKey.P)
+                if (!paused && key.Key == ConsoleKey.P)
                 {
                     Console.Write("Save as: ");
                     paused = true;
