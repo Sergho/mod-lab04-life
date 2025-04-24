@@ -55,7 +55,7 @@ class Program
             sig.LegendText = $"Density {Math.Round(density, 3)}";
         }
 
-        plot.Title("Report Graph", size: 16);
+        plot.Title("Report Plot", size: 16);
         plot.XLabel("Generation", size: 14);
         plot.YLabel("Alive cells", size: 14);
 
