@@ -1,10 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace cli_life;
 
 public class Board
 {
+	public int AliveCount = 0;
+	public int StableCount = 0;
 	public readonly Cell[,] Cells;
 	public readonly int CellSize;
 
@@ -24,6 +27,7 @@ public class Board
 
 		ConnectNeighbors();
 		Randomize(liveDensity);
+		CountCells();
 	}
 
 	readonly Random rand = new Random();
@@ -80,7 +84,21 @@ public class Board
 		foreach (var cell in Cells)
 			cell.DetermineNextLiveState();
 		foreach (var cell in Cells)
+		{
 			cell.Advance();
+		}
+		CountCells();
+	}
+	private void CountCells()
+	{
+		int lastAliveCount = AliveCount;
+		AliveCount = 0;
+		foreach (var cell in Cells)
+		{
+			if (cell.IsAlive) AliveCount++;
+		}
+		if (AliveCount == lastAliveCount) StableCount++;
+		else StableCount = 0;
 	}
 	private void ConnectNeighbors()
 	{

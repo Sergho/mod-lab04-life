@@ -6,7 +6,8 @@
     "liveDensity": 0.15,
     "aliveChar": "⬜",
     "notAliveChar": "⬛",
-    "delay": 100
+    "delay": 100,
+    "exitCondition": 30
   },
   "cell": {
     "aliveCondition": [2, 3],

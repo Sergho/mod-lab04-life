@@ -46,12 +46,14 @@ class Program
         {
             Console.WriteLine($"{entry.Key}: {entry.Value}");
         }
+        Console.WriteLine($"Alive cells: {board.AliveCount}");
     }
     static void MainPolling()
     {
         while (true)
         {
             if (paused) continue;
+            if (board.StableCount >= config.app.exitCondition) break;
             Render();
             board.Advance();
             Thread.Sleep(config.app.delay);

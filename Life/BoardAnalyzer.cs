@@ -35,6 +35,15 @@ class BoardAnalyzer
     classification.Add("Total", parts.Count);
     return classification;
   }
+  public int AliveCount()
+  {
+    int counter = 0;
+    foreach (Cell cell in Board.Cells)
+    {
+      if (cell.IsAlive) counter++;
+    }
+    return counter;
+  }
   private List<int[,]> FormatParts(List<List<Cell>> parts)
   {
     List<int[,]> result = new List<int[,]>();

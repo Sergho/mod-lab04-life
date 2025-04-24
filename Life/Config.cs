@@ -12,6 +12,7 @@ public class AppConfig
 	public string aliveChar { get; set; }
 	public string notAliveChar { get; set; }
 	public int delay { get; set; }
+	public int exitCondition { get; set; }
 }
 
 public class CellConfig
