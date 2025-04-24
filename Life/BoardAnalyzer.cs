@@ -22,8 +22,17 @@ class BoardAnalyzer
     var parts = FormatParts(rawParts);
     foreach (var entry in Patterns)
     {
-      classification.Add(entry.Key, 1);
+      int counter = 0;
+      foreach (var part in parts)
+      {
+        if (MatrixComparer.Equivalent(part, entry.Value))
+        {
+          counter++;
+        }
+      }
+      classification.Add(entry.Key, counter);
     }
+    classification.Add("Total", parts.Count);
     return classification;
   }
   private List<int[,]> FormatParts(List<List<Cell>> parts)
