@@ -6,6 +6,7 @@ namespace cli_life;
 
 public class Board
 {
+	public int Generation = 1;
 	public int AliveCount = 0;
 	public int StableCount = 0;
 	public readonly Cell[,] Cells;
@@ -88,6 +89,7 @@ public class Board
 			cell.Advance();
 		}
 		CountCells();
+		Generation++;
 	}
 	private void CountCells()
 	{

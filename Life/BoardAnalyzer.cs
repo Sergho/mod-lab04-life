@@ -32,7 +32,7 @@ class BoardAnalyzer
       }
       classification.Add(entry.Key, counter);
     }
-    classification.Add("Total", parts.Count);
+    classification.Add("Total parts", parts.Count);
     return classification;
   }
   public int AliveCount()

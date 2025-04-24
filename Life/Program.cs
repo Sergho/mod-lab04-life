@@ -47,6 +47,7 @@ class Program
             Console.WriteLine($"{entry.Key}: {entry.Value}");
         }
         Console.WriteLine($"Alive cells: {board.AliveCount}");
+        Console.WriteLine($"Generation: {board.Generation}");
     }
     static void MainPolling()
     {
