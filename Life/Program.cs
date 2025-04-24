@@ -35,6 +35,8 @@ class Program
         Thread keyThread = new Thread(KeyPolling);
         mainThread.Start();
         keyThread.Start();
+
+        keyThread.Join();
     }
     static void Render()
     {
@@ -59,6 +61,7 @@ class Program
             board.Advance();
             Thread.Sleep(config.app.delay);
         }
+        Environment.Exit(0);
     }
     static void KeyPolling()
     {
