@@ -21,10 +21,16 @@ public class CellConfig
 	public int[] notAliveCondition { get; set; }
 }
 
+public class ReportConfig
+{
+	public double densityStep { get; set; }
+}
+
 public class Config
 {
 	public AppConfig app { get; set; }
 	public CellConfig cell { get; set; }
+	public ReportConfig report { get; set; }
 	public static Config Parse(string configPath)
 	{
 		string jsonString = File.ReadAllText(configPath);

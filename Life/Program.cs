@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace cli_life;
@@ -14,6 +15,32 @@ class Program
     {
         config = Config.Parse("config.json");
         Cell.Config = config.cell;
+        if (args.Length > 0 && args[0] == "--report") ReportStart();
+        else GameStart();
+    }
+    static void ReportStart()
+    {
+        Directory.CreateDirectory("report");
+        for (double density = 0; density <= 1; density += config.report.densityStep)
+        {
+            Console.WriteLine($"Density: {Math.Round(density, 3)}");
+            File.WriteAllText($"report/density-{Math.Round(density, 3)}.txt", "");
+
+            board = new Board(
+                width: config.app.width,
+                height: config.app.height,
+                cellSize: config.app.cellSize,
+                liveDensity: density);
+
+            while (board.StableCount < config.app.exitCondition)
+            {
+                File.AppendAllText($"report/density-{Math.Round(density, 3)}.txt", $"{board.Generation} {board.AliveCount}\n");
+                board.Advance();
+            }
+        }
+    }
+    static void GameStart()
+    {
         board = new Board(
             width: config.app.width,
             height: config.app.height,
@@ -105,18 +132,18 @@ class Program
             Thread.Sleep(config.app.delay);
         }
     }
-    static string GetPath(string filename)
+    static string GetSavesPath(string filename)
     {
         return "saves/" + filename + ".txt";
     }
     static void SaveFile(string filename)
     {
         Directory.CreateDirectory("saves");
-        File.WriteAllText(GetPath(filename), board.Serialize());
+        File.WriteAllText(GetSavesPath(filename), board.Serialize());
     }
     static string ReadFile(string filename)
     {
-        string path = GetPath(filename);
+        string path = GetSavesPath(filename);
         if (!File.Exists(path)) throw new Exception("File not found");
         return File.ReadAllText(path);
     }

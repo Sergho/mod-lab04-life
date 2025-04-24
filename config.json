@@ -12,5 +12,8 @@
   "cell": {
     "aliveCondition": [2, 3],
     "notAliveCondition": [3]
+  },
+  "report": {
+    "densityStep": 0.1
   }
 }
