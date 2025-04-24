@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace cli_life;
 
-class BoardAnalyzer
+public class BoardAnalyzer
 {
   public Board Board { get; set; }
   public Dictionary<string, int[,]> Patterns { get; set; }
@@ -34,15 +34,6 @@ class BoardAnalyzer
     }
     classification.Add("Total parts", parts.Count);
     return classification;
-  }
-  public int AliveCount()
-  {
-    int counter = 0;
-    foreach (Cell cell in Board.Cells)
-    {
-      if (cell.IsAlive) counter++;
-    }
-    return counter;
   }
   private List<int[,]> FormatParts(List<List<Cell>> parts)
   {
@@ -87,13 +78,14 @@ class BoardAnalyzer
     {
       Cell current = queue.Dequeue();
 
+      visited.Add(current);
+      list.Add(current);
+
       foreach (Cell neighbor in current.Neighbors)
       {
         if (neighbor.IsAlive && !visited.Contains(neighbor))
         {
-          visited.Add(neighbor);
           queue.Enqueue(neighbor);
-          list.Add(neighbor);
         }
       }
     }
