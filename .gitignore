@@ -5,6 +5,4 @@ build
 saves/*
 !saves/examples
 
-report
-
 .vscode
