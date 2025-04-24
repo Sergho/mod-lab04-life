@@ -74,10 +74,12 @@ public class Board
 			cell.IsAlive = c == '1';
 			col++;
 		}
+		CountCells();
 	}
 	public void Clear()
 	{
 		foreach (var cell in Cells) cell.IsAlive = false;
+		CountCells();
 	}
 
 	public void Advance()
