@@ -28,10 +28,12 @@ class Program
 
         Plot plot = new Plot();
         Random rand = new Random();
+        File.WriteAllText("Life/data.txt", "");
         for (double density = 0; density <= 1; density += config.report.densityStep)
         {
             Console.WriteLine($"Density: {Math.Round(density, 3)}");
             File.WriteAllText($"report/density-{Math.Round(density, 3)}.txt", "");
+            File.AppendAllText("Life/data.txt", $"# density: {Math.Round(density, 3)}\n");
 
             board = new Board(
                 width: config.app.width,
@@ -45,6 +47,7 @@ class Program
             while (board.StableCount < config.app.exitCondition)
             {
                 File.AppendAllText($"report/density-{Math.Round(density, 3)}.txt", $"{board.Generation} {board.AliveCount}\n");
+                File.AppendAllText("Life/data.txt", $"{board.Generation} {board.AliveCount}\n");
                 generationsList.Add(board.Generation);
                 aliveCountList.Add(board.AliveCount);
                 board.Advance();
