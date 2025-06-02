@@ -24,7 +24,7 @@ class Program
     }
     static void ReportStart()
     {
-        Directory.CreateDirectory("report");
+        Directory.CreateDirectory("Life/report");
 
         Plot plot = new Plot();
         Random rand = new Random();
@@ -32,7 +32,7 @@ class Program
         for (double density = 0; density <= 1; density += config.report.densityStep)
         {
             Console.WriteLine($"Density: {Math.Round(density, 3)}");
-            File.WriteAllText($"report/density-{Math.Round(density, 3)}.txt", "");
+            File.WriteAllText($"Life/report/density-{Math.Round(density, 3)}.txt", "");
             File.AppendAllText("Life/data.txt", $"# density: {Math.Round(density, 3)}\n");
 
             board = new Board(
@@ -46,7 +46,7 @@ class Program
 
             while (board.StableCount < config.app.exitCondition)
             {
-                File.AppendAllText($"report/density-{Math.Round(density, 3)}.txt", $"{board.Generation} {board.AliveCount}\n");
+                File.AppendAllText($"Life/report/density-{Math.Round(density, 3)}.txt", $"{board.Generation} {board.AliveCount}\n");
                 File.AppendAllText("Life/data.txt", $"{board.Generation} {board.AliveCount}\n");
                 generationsList.Add(board.Generation);
                 aliveCountList.Add(board.AliveCount);
@@ -65,7 +65,7 @@ class Program
         plot.Axes.AutoScale();
         plot.ShowLegend();
 
-        plot.SavePng("report/plot.png", 2000, 1000);
+        plot.SavePng("Life/plot.png", 2000, 1000);
     }
     static void GameStart()
     {
