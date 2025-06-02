@@ -17,7 +17,7 @@ class Program
     static bool paused = true;
     static void Main(string[] args)
     {
-        config = Config.Parse("config.json");
+        config = Config.Parse("Life/config.json");
         Cell.Config = config.cell;
         if (args.Length > 0 && args[0] == "--report") ReportStart();
         else GameStart();

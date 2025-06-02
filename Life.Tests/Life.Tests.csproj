@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="../config.json">
+    <Content Include="../Life/config.json"> 
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
